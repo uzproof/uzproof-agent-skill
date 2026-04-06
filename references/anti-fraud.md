@@ -28,7 +28,7 @@ A score of `0` means no suspicious signals. A score of `100` means maximum risk.
 
 The wallet has zero recorded transactions on-chain.
 
-```
+```text
 Wallet has zero transaction history
 ```
 
@@ -38,7 +38,7 @@ Fresh wallets with no history are a strong indicator of sybil accounts created p
 
 The wallet has fewer than 5 transactions total.
 
-```
+```text
 Only 2 transactions (min: 5)
 ```
 
@@ -48,7 +48,7 @@ Legitimate DeFi users accumulate transactions naturally. Very low counts suggest
 
 The wallet's oldest transaction is less than 3 days ago.
 
-```
+```text
 Wallet is only 1.2 days old (min: 3)
 ```
 
@@ -58,7 +58,7 @@ New wallets are a classic sybil pattern — attackers spin up fresh addresses in
 
 The wallet holds less than 0.01 SOL.
 
-```
+```text
 SOL balance: 0.0021 SOL (below 0.01 SOL threshold)
 ```
 
@@ -68,7 +68,7 @@ Real users need SOL for gas. Dust balances indicate a funded-just-enough-to-tran
 
 The wallet was verified less than 10 seconds after the verification flow started.
 
-```
+```text
 Verified 3s after start (min: 10s)
 ```
 
