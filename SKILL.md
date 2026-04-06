@@ -142,6 +142,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 ## Action Types
 
 ### DeFi Actions
+
 | Type | Verifies |
 |---|---|
 | `defi_swap` | Any swap on a supported DEX |
@@ -164,6 +165,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 | `defi_create_lst` | LST creation |
 
 ### NFT Actions
+
 | Type | Verifies |
 |---|---|
 | `nft_hold` | Owns NFT from collection |
@@ -171,6 +173,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 | `nft_check` | General NFT ownership check |
 
 ### Utility Actions
+
 | Type | Verifies |
 |---|---|
 | `token_balance` | Raw token balance |
@@ -205,10 +208,10 @@ async function checkEligibility(wallet: string): Promise<boolean> {
 }
 ```
 
-### Quest/Task Verification
+### Task Verification
 
 ```typescript
-async function verifyQuestTask(wallet: string, task: { type: string; config: object }) {
+async function verifyTask(wallet: string, task: { type: string; config: object }) {
   const client = new UzproofClient({ apiKey: process.env.UZPROOF_API_KEY });
   const result = await client.verify({
     wallet,
@@ -231,8 +234,8 @@ const info = await client.detectContract(userProgramId);
 if (info.detected) {
   console.log(`Detected: ${info.program.name} (${info.program.category})`);
   console.log(`Supported verifications: ${info.program.supportedActions.join(', ')}`);
-  // Use suggested quest template
-  const template = info.questTemplate;
+  // Use suggested verification template
+  const template = info.verificationTemplate;
 }
 ```
 

@@ -1,5 +1,8 @@
 # UZPROOF Agent Skill
 
+[![npm](https://img.shields.io/npm/v/%40uzproof%2Fverify?label=npm%3A%20%40uzproof%2Fverify)](https://www.npmjs.com/package/@uzproof/verify)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Agent Skill for verifying real on-chain usage on Solana. Works with [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com), [GitHub Copilot](https://github.com/features/copilot), [Gemini CLI](https://geminicli.com), and [30+ other AI coding agents](https://agentskills.io/).
 
 ## What is UZPROOF?
@@ -7,6 +10,8 @@ Agent Skill for verifying real on-chain usage on Solana. Works with [Claude Code
 [UZPROOF](https://uzproof.com) is the first **Proof-of-Use** verification layer on Solana. It verifies that a wallet actually performed an on-chain action — swaps, staking, token holds, liquidity provision, NFT minting — across 14 protocols including Jupiter, Marinade, Orca, Raydium, Drift, Kamino, and more.
 
 UZPROOF is also the first Proof-of-Use attestor on the Solana Attestation Service (SAS), creating permanent on-chain records of verified usage.
+
+**On-chain credential:** [`2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF`](https://explorer.solana.com/address/2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF)
 
 ## Install
 
