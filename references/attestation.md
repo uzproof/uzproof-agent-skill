@@ -16,7 +16,7 @@ SAS_PROGRAM_ID     = "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG"
 UZPROOF_CREDENTIAL = "2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF"
 
 // Proof-of-Use schema definition
-POU_SCHEMA         = "9FQiiMtroSHP2Ewqfh3D94GPKnDjmeLT2ftqJ3E7QyWc"
+POU_SCHEMA         = "8yW2BboQuhp2MMmrQLFz35V6VSqC48MF7wZ5bmzcTeTF"
 ```
 
 ## Check Attestation Status
