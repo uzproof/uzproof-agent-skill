@@ -193,7 +193,7 @@ await client.verify({
 await client.verify({
   wallet: '7H4RVL...',
   action: 'defi_lend',
-  config: { program_id: 'KLend2g3cP87ber...', min_amount_usd: 100 }
+  config: { program_id: '6LtLpnUFNByNXLyCoK9wA2MykKAmQNZKBdY8s47dehDc', min_amount_usd: 100 } // Kamino
 });
 
 // Verify borrowing position

@@ -6,7 +6,7 @@ Agent Skill for verifying real on-chain usage on Solana. Works with [Claude Code
 
 [UZPROOF](https://uzproof.com) is the first **Proof-of-Use** verification layer on Solana. It verifies that a wallet actually performed an on-chain action — swaps, staking, token holds, liquidity provision, NFT minting — across 14 protocols including Jupiter, Marinade, Orca, Raydium, Drift, Kamino, and more.
 
-UZPROOF is also the first Proof-of-Use attestor on the [Solana Attestation Service (SAS)](https://sas.fun), creating permanent on-chain records of verified usage.
+UZPROOF is also the first Proof-of-Use attestor on the Solana Attestation Service (SAS), creating permanent on-chain records of verified usage.
 
 ## Install
 
