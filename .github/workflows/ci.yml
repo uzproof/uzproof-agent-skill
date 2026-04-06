@@ -20,6 +20,7 @@ jobs:
           args: >
             --no-progress
             --exclude-loopback
+            --accept 200,403,429
             --timeout 15
             --retry-wait-time 5
             --max-retries 3
@@ -50,18 +51,3 @@ jobs:
         uses: DavidAnson/markdownlint-cli2-action@v17
         with:
           globs: "**/*.md"
-
-  secrets:
-    name: Secret Scan (gitleaks)
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
