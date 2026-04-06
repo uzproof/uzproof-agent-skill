@@ -56,7 +56,7 @@ Jupiter, Marinade, Sanctum, Orca, Raydium, Drift, Kamino, MarginFi, Meteora, Jit
 
 - [UZPROOF Website](https://uzproof.com)
 - [npm: @uzproof/verify](https://www.npmjs.com/package/@uzproof/verify)
-- [UZPROOF GitHub](https://github.com/uzproof/uzproof)
+- [Skill Repo](https://github.com/uzproof/uzproof-agent-skill)
 - [Agent Skills Format](https://agentskills.io)
 
 ## License

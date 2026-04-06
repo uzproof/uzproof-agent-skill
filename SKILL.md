@@ -275,4 +275,4 @@ SUPPORTED_PROTOCOLS // 14 protocol names
 - **npm:** [@uzproof/verify](https://www.npmjs.com/package/@uzproof/verify)
 - **Website:** [uzproof.com](https://uzproof.com)
 - **API Health:** [uzproof.com/api/health](https://uzproof.com/api/health)
-- **GitHub:** [github.com/uzproof/uzproof](https://github.com/uzproof/uzproof)
+- **Skill repo:** [github.com/uzproof/uzproof-agent-skill](https://github.com/uzproof/uzproof-agent-skill)
