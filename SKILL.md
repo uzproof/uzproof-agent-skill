@@ -14,6 +14,7 @@ You are building with UZPROOF, the first Proof-of-Use verification layer on Sola
 ## Use / Do Not Use
 
 **Use when:**
+
 - Verifying a wallet performed a specific on-chain action (swap, stake, hold, mint)
 - Building reward distribution that requires proof of real usage
 - Gating access to features based on on-chain behavior
@@ -23,6 +24,7 @@ You are building with UZPROOF, the first Proof-of-Use verification layer on Sola
 - Fetching token metadata and live prices
 
 **Do not use when:**
+
 - Executing transactions (use Jupiter, Drift, etc. for that)
 - Reading raw transaction data (use Helius for that)
 - Building wallets or signing transactions
@@ -142,6 +144,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 ## Action Types
 
 ### DeFi Actions
+
 | Type | Verifies |
 |---|---|
 | `defi_swap` | Any swap on a supported DEX |
@@ -164,6 +167,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 | `defi_create_lst` | LST creation |
 
 ### NFT Actions
+
 | Type | Verifies |
 |---|---|
 | `nft_hold` | Owns NFT from collection |
@@ -171,6 +175,7 @@ See [references/attestation.md](references/attestation.md) for SAS integration d
 | `nft_check` | General NFT ownership check |
 
 ### Utility Actions
+
 | Type | Verifies |
 |---|---|
 | `token_balance` | Raw token balance |
@@ -205,10 +210,10 @@ async function checkEligibility(wallet: string): Promise<boolean> {
 }
 ```
 
-### Quest/Task Verification
+### Task Verification
 
 ```typescript
-async function verifyQuestTask(wallet: string, task: { type: string; config: object }) {
+async function verifyTask(wallet: string, task: { type: string; config: object }) {
   const client = new UzproofClient({ apiKey: process.env.UZPROOF_API_KEY });
   const result = await client.verify({
     wallet,
@@ -231,8 +236,7 @@ const info = await client.detectContract(userProgramId);
 if (info.detected) {
   console.log(`Detected: ${info.program.name} (${info.program.category})`);
   console.log(`Supported verifications: ${info.program.supportedActions.join(', ')}`);
-  // Use suggested quest template
-  const template = info.questTemplate;
+  const template = info.verificationTemplate;
 }
 ```
 
@@ -265,7 +269,7 @@ import { SAS_PROGRAM_ID, UZPROOF_CREDENTIAL, POU_SCHEMA, ACTION_TYPES, SUPPORTED
 
 SAS_PROGRAM_ID     // "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG"
 UZPROOF_CREDENTIAL // "2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF"
-POU_SCHEMA         // "8yW2BboQuhp2MMmrQLFz35V6VSqC48MF7wZ5bmzcTeTF"
+POU_SCHEMA         // "9FQiiMtroSHP2Ewqfh3D94GPKnDjmeLT2ftqJ3E7QyWc"
 ACTION_TYPES       // All 24 supported action types
 SUPPORTED_PROTOCOLS // 14 protocol names
 ```

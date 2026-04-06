@@ -25,7 +25,7 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
     "category": "dex",
     "supportedActions": ["defi_swap", "defi_swap_buy", "defi_swap_sell", "defi_swap_volume"]
   },
-  "questTemplate": {
+  "verificationTemplate": {
     "suggestedTitle": "Get started with Jupiter Aggregator v6",
     "suggestedDescription": "Complete tasks to earn XP and prove your on-chain activity with Jupiter Aggregator v6.",
     "suggestedTasks": [
@@ -79,7 +79,7 @@ If a program ID is not in the supported list, `detectContract()` returns:
 {
   "detected": false,
   "program": null,
-  "questTemplate": null
+  "verificationTemplate": null
 }
 ```
 
