@@ -52,7 +52,7 @@ if (result.verified) {
 }
 ```
 
-**API key:** Get one at [uzproof.com](https://uzproof.com) or use x402 pay-per-verify (no key needed).
+**API key:** Get one at [uzproof.com](https://uzproof.com). The API also supports x402 pay-per-verify (see [references/x402.md](references/x402.md)).
 
 ## Core API
 
@@ -238,7 +238,7 @@ if (info.detected) {
 
 ## x402 Pay-Per-Verify
 
-UZPROOF supports the x402 HTTP payment protocol — no API key needed. AI agents pay $0.05 per verification call with USDC on Solana.
+UZPROOF has built-in x402 HTTP payment protocol support. When enabled, AI agents pay $0.05 per verification call with USDC on Solana — no API key needed. Currently the API accepts requests freely; x402 gating will be enabled in a future release.
 
 See [references/x402.md](references/x402.md) for integration details.
 

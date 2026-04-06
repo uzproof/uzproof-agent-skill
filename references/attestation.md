@@ -38,10 +38,12 @@ if (status.hasAttestation) {
 ```json
 {
   "hasAttestation": true,
-  "attestation": "2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF",
-  "explorer": "https://explorer.solana.com/address/2chgBfvkwhnHQVVAyXKDK6CBjbCRMQ8aLWrysL5UQyyF"
+  "attestation": "AtTeStAtIoNpDaAdDrEsSuNiQuEpErWaLlEt123456789",
+  "explorer": "https://explorer.solana.com/address/AtTeStAtIoNpDaAdDrEsSuNiQuEpErWaLlEt123456789"
 }
 ```
+
+Note: The `attestation` field contains the unique PDA address derived for each wallet, not a fixed value.
 
 ## How It Works
 
