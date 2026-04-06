@@ -26,8 +26,8 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
     "supportedActions": ["defi_swap", "defi_swap_buy", "defi_swap_sell", "defi_swap_volume"]
   },
   "questTemplate": {
-    "suggestedTitle": "Swap on Jupiter",
-    "suggestedDescription": "Perform a token swap using Jupiter aggregator",
+    "suggestedTitle": "Get started with Jupiter Aggregator v6",
+    "suggestedDescription": "Complete tasks to earn XP and prove your on-chain activity with Jupiter Aggregator v6.",
     "suggestedTasks": [
       { "type": "defi_swap", "config": { "program_id": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4" } }
     ]
@@ -41,35 +41,35 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
 
 | Protocol | Program ID | Category | Actions |
 |---|---|---|---|
-| **Jupiter Aggregator v6** | `JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4` | dex | swap, swap_buy, swap_sell, swap_volume |
-| **Raydium AMM** | `675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8` | dex | swap, add_liquidity, hold_lp |
-| **Orca Whirlpools** | `whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc` | dex | swap, add_liquidity, hold_lp |
-| **Meteora DLMM** | `LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo` | dex | swap, add_liquidity |
+| **Jupiter Aggregator v6** | `JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4` | dex | `defi_swap`, `defi_swap_buy`, `defi_swap_sell`, `defi_swap_volume` |
+| **Raydium AMM v4** | `675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8` | dex | `defi_swap`, `defi_add_liquidity`, `defi_hold_lp` |
+| **Orca Whirlpools** | `whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc` | dex | `defi_swap`, `defi_add_liquidity`, `defi_hold_lp` |
+| **Meteora DLMM** | `LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo` | dex | `defi_swap`, `defi_add_liquidity` |
 
 ### Staking / LST
 
 | Protocol | Program ID | Category | Actions |
 |---|---|---|---|
-| **Marinade Finance** | `MarBmsSgKXdrN1egZf5sqe1TMai9K1rChYNDJgjq7aD` | staking | stake_sol, hold_staked |
-| **Sanctum** | `5ocnV1qiCgaQR8Jb8xWnVbApfaygJ8tNoZfgPwsgx9kx` | staking | stake_sol, hold_staked, create_lst |
-| **Jito** | `Jito4APyf642JPZPx3hGc6WWJ8zPKtRbRs4P3DPYNJFm` | staking | stake_sol, hold_staked |
+| **Marinade Finance** | `MarBmsSgKXdrN1egZf5sqe1TMai9K1rChYNDJgjq7aD` | staking | `defi_stake_sol`, `defi_hold_staked` |
+| **Sanctum (Infinity)** | `stkitrT1Uoy18Dk1fTrgPw8W6MVzoCfYoAFT4MLsmhq` | staking | `defi_stake_sol`, `defi_hold_staked` |
+| **Jito Stake Pool** | `SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy` | staking | `defi_stake_sol`, `defi_hold_staked` |
 
-### Lending / Borrowing
+### DeFi / Lending
 
 | Protocol | Program ID | Category | Actions |
 |---|---|---|---|
-| **Drift Protocol** | `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH` | lending | lend, borrow, swap |
-| **Kamino Finance** | `KLend2g3cP87ber41GjPFsmWxcEGlthMQJkR1JWm63yx2` | lending | lend, borrow, hold_lp |
-| **MarginFi** | `MFv2hWf31Z9kbCkwa63Vn3AcqitDGiW5MYetf8d5MHMQ` | lending | lend, borrow |
+| **Drift Protocol** | `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH` | defi | `defi_swap` |
+| **Kamino Lending** | `6LtLpnUFNByNXLyCoK9wA2MykKAmQNZKBdY8s47dehDc` | defi | `defi_lend`, `defi_borrow` |
+| **MarginFi** | `MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA` | defi | `defi_lend`, `defi_borrow` |
 
 ### NFT / Tokens
 
 | Protocol | Program ID | Category | Actions |
 |---|---|---|---|
-| **Tensor** | `TSWAPaqyCSx2KABk68Shruf4rp7CxcNi8hAsbdwmHbN` | nft | nft_hold, nft_mint, nft_check |
-| **Magic Eden** | `M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K` | nft | nft_hold, nft_mint, nft_check |
-| **Metaplex** | `metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s` | nft | nft_hold, nft_mint, nft_check |
-| **SPL Token** | `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA` | token | token_balance, hold_token |
+| **Tensor Swap** | `TSWAPaqyCSx2KABk68Shruf4rp7CxcNi8hAsbdwmHbN` | nft | `nft_hold`, `nft_mint` |
+| **Magic Eden v2** | `M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K` | nft | `nft_hold`, `nft_mint` |
+| **Metaplex Core** | `CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d` | nft | `nft_hold`, `nft_mint`, `nft_check` |
+| **SPL Token Program** | `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA` | token | `defi_hold_token`, `token_balance` |
 
 ## Unrecognized Programs
 
