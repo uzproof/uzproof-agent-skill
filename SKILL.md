@@ -274,6 +274,18 @@ ACTION_TYPES       // All 24 supported action types
 SUPPORTED_PROTOCOLS // 14 protocol names
 ```
 
+## Companion Skills
+
+UZPROOF verifies actions — it does not execute them. For executing on-chain actions, pair with these skills:
+
+| Skill | Install | Use for |
+|-------|---------|---------|
+| **Jupiter** | `npx skills add jup-ag/agent-skills --skill integrating-jupiter` | Swap execution, quotes, DCA, limit orders |
+| **Jupiter Lend** | `npx skills add jup-ag/agent-skills --skill jupiter-lend` | Lending, borrowing, vaults |
+| **Solana Dev** | `npx skills add solana-foundation/solana-dev-skill` | Anchor programs, wallet connection, testing |
+
+**Typical workflow:** Jupiter skill executes a swap → UZPROOF skill verifies it happened → SAS attestation records proof on-chain.
+
 ## Links
 
 - **npm:** [@uzproof/verify](https://www.npmjs.com/package/@uzproof/verify)
