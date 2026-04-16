@@ -4,7 +4,7 @@ description: Verify real on-chain usage on Solana — swaps, staking, token hold
 license: MIT
 metadata:
   author: uzproof
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # UZPROOF — Proof-of-Use Verification for Solana
@@ -40,43 +40,51 @@ npm install @uzproof/verify
 ```typescript
 import { UzproofClient } from '@uzproof/verify';
 
-const client = new UzproofClient({ apiKey: 'your-key' });
+const client = new UzproofClient();
 
-// Verify a wallet swapped on Jupiter
-const result = await client.verify({
-  wallet: '7H4RVLxfe4MYQGV3XxwJo5GrcFdNUBQEziSJYAfwqoiP',
-  action: 'defi_swap',
-  config: { program_id: 'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4' }
-});
-
-if (result.verified) {
-  console.log(`Verified! ${result.result.matchingTxCount} matching transactions`);
-}
+// Read-only endpoints — no auth required
+const token = await client.getTokenInfo('JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN');
+const attestation = await client.getAttestation('7H4RVLxfe4MYQGV3XxwJo5GrcFdNUBQEziSJYAfwqoiP');
+const protocol = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4');
 ```
 
-**API key:** Get one at [uzproof.com](https://uzproof.com). The API also supports x402 pay-per-verify (see [references/x402.md](references/x402.md)).
+## Authentication
+
+UZPROOF has two authentication paths:
+
+| Path | Who | How |
+|---|---|---|
+| **Self** | End users on uzproof.com | Sign in with wallet — session cookie. Handled by the dashboard, not via SDK. |
+| **x402** | B2B backends, AI agents | Pay $0.05 USDC per `verify()` call on Solana mainnet. Pass the tx signature as `xPayment`. Live since 2026-04-16. |
+
+Read-only endpoints (`getTokenInfo`, `getAttestation`, `detectContract`) are **free** and need no authentication.
+
+> API keys are reserved for a future Phase 2 release. Today, programmatic `verify()` calls from backends or AI agents must pay via x402 — see [references/x402.md](references/x402.md).
 
 ## Core API
 
-### `verify(request)` — Verify On-Chain Action
+### `verify(request, options?)` — Verify On-Chain Action
 
-The primary method. Checks if a wallet actually performed a specific action.
+The primary method. Checks if a wallet actually performed a specific action. Requires x402 payment when called from a backend/AI agent.
 
 ```typescript
-const result = await client.verify({
-  wallet: string,        // Solana wallet address
-  action: ActionType,    // What to verify (see Action Types below)
-  config?: {             // Action-specific parameters
-    program_id?: string,       // Solana program ID
-    token_mint?: string,       // SPL token mint
-    min_amount_usd?: number,   // Minimum USD amount
-    min_amount?: number,       // Minimum token amount
-    min_amount_sol?: number,   // Minimum SOL amount
-    collection_address?: string, // NFT collection
-    nft_mint?: string,         // Specific NFT mint
-    min_volume_usd?: number,   // Minimum trading volume
-  }
-});
+const result = await client.verify(
+  {
+    wallet: string,        // Solana wallet address
+    action: ActionType,    // What to verify (see Action Types below)
+    config?: {             // Action-specific parameters
+      program_id?: string,       // Solana program ID
+      token_mint?: string,       // SPL token mint
+      min_amount_usd?: number,   // Minimum USD amount
+      min_amount?: number,       // Minimum token amount
+      min_amount_sol?: number,   // Minimum SOL amount
+      collection_address?: string, // NFT collection
+      nft_mint?: string,         // Specific NFT mint
+      min_volume_usd?: number,   // Minimum trading volume
+    },
+  },
+  { xPayment: paymentTxSignature },  // USDC tx sig from x402 flow
+);
 
 // Returns:
 {
@@ -97,7 +105,7 @@ const result = await client.verify({
 
 ### `detectContract(programId)` — Auto-Detect Protocol
 
-Identifies a Solana program and suggests verification types.
+Free endpoint. Identifies a Solana program and suggests verification types.
 
 ```typescript
 const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4');
@@ -110,6 +118,8 @@ See [references/contract-detect.md](references/contract-detect.md) for all 14 pr
 
 ### `getTokenInfo(mint)` — Token Metadata & Price
 
+Free endpoint.
+
 ```typescript
 const token = await client.getTokenInfo('JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN');
 // token.symbol = "JUP", token.priceUsd = 0.85
@@ -117,7 +127,7 @@ const token = await client.getTokenInfo('JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNs
 
 ### `getAttestation(wallet)` — On-Chain SAS Attestation
 
-Check if a wallet has an on-chain Proof-of-Use attestation on the Solana Attestation Service.
+Free endpoint. Checks if a wallet has an on-chain Proof-of-Use attestation on the Solana Attestation Service — the data lives on-chain and anyone can read it directly via RPC, so our convenience wrapper is free too.
 
 ```typescript
 const status = await client.getAttestation('7H4RVL...');
@@ -186,52 +196,65 @@ See [references/verification.md](references/verification.md) for detailed exampl
 
 ## Common Patterns
 
-### Airdrop Eligibility Check
+### Airdrop Eligibility Check (x402)
 
 ```typescript
-async function checkEligibility(wallet: string): Promise<boolean> {
-  const client = new UzproofClient({ apiKey: process.env.UZPROOF_API_KEY });
+import { UzproofClient, PaymentRequiredError } from '@uzproof/verify';
 
-  // Must have swapped on Jupiter
-  const swapped = await client.verify({
-    wallet,
-    action: 'defi_swap',
-    config: { program_id: 'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4', min_amount_usd: 10 }
-  });
+async function checkEligibility(
+  wallet: string,
+  payForCall: (amountUsdc: string, payTo: string) => Promise<string>,
+): Promise<boolean> {
+  const client = new UzproofClient();
 
-  // Must hold at least 100 tokens
-  const holds = await client.verify({
-    wallet,
-    action: 'defi_hold_token',
-    config: { token_mint: 'YOUR_TOKEN_MINT', min_amount: 100 }
-  });
-
-  return swapped.verified && holds.verified;
+  // First attempt — will 402 with payment schema
+  try {
+    const swapped = await client.verify({
+      wallet,
+      action: 'defi_swap',
+      config: { program_id: 'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4', min_amount_usd: 10 },
+    });
+    return swapped.verified;
+  } catch (err) {
+    if (err instanceof PaymentRequiredError) {
+      // Pay the 402 schema, retry with xPayment
+      const scheme = err.details.schemes[0];
+      const sig = await payForCall(scheme.maxAmountRequired, scheme.payTo);
+      const swapped = await client.verify(
+        { wallet, action: 'defi_swap', config: { program_id: 'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4', min_amount_usd: 10 } },
+        { xPayment: sig },
+      );
+      return swapped.verified;
+    }
+    throw err;
+  }
 }
 ```
 
 ### Task Verification
 
 ```typescript
-async function verifyTask(wallet: string, task: { type: string; config: object }) {
-  const client = new UzproofClient({ apiKey: process.env.UZPROOF_API_KEY });
-  const result = await client.verify({
-    wallet,
-    action: task.type as ActionType,
-    config: task.config
-  });
+async function verifyTask(
+  wallet: string,
+  task: { type: string; config: object },
+  paymentSignature: string,
+) {
+  const client = new UzproofClient();
+  const result = await client.verify(
+    { wallet, action: task.type as ActionType, config: task.config },
+    { xPayment: paymentSignature },
+  );
   return {
     completed: result.verified,
     evidence: result.result.matchingSignatures || [],
-    volume: result.result.totalVolumeEstimate
+    volume: result.result.totalVolumeEstimate,
   };
 }
 ```
 
-### Protocol Auto-Detection
+### Protocol Auto-Detection (free)
 
 ```typescript
-// User pastes a program ID — auto-detect what it is
 const info = await client.detectContract(userProgramId);
 if (info.detected) {
   console.log(`Detected: ${info.program.name} (${info.program.category})`);
@@ -240,24 +263,38 @@ if (info.detected) {
 }
 ```
 
-## x402 Pay-Per-Verify
+## x402 Pay-Per-Verify — LIVE on mainnet
 
-UZPROOF has built-in x402 HTTP payment protocol support. When enabled, AI agents pay $0.05 per verification call with USDC on Solana — no API key needed. Currently the API accepts requests freely; x402 gating will be enabled in a future release.
+UZPROOF's `/api/verify` is **live** behind x402 since 2026-04-16. Price: **$0.05 USDC per call** on Solana mainnet. No API key. No signup.
 
-See [references/x402.md](references/x402.md) for integration details.
+Flow (4 steps):
+
+1. Call `verify()` without `xPayment` — SDK throws `PaymentRequiredError` carrying the x402 schema (`payTo`, `maxAmountRequired`, USDC mint)
+2. Sign and broadcast a USDC transfer for at least `maxAmountRequired` to `payTo`
+3. Grab the tx signature once confirmed (5-minute window)
+4. Retry `verify()` with `{ xPayment: txSignature }` — get the verification result
+
+One signature = one verify call. Replays are rejected server-side. See [references/x402.md](references/x402.md) for full walkthrough, pricing table, and SDK examples.
 
 ## Error Handling
 
 ```typescript
+import { PaymentRequiredError } from '@uzproof/verify';
+
 try {
-  const result = await client.verify({ wallet, action: 'defi_swap', config: {} });
+  const result = await client.verify(
+    { wallet, action: 'defi_swap', config: {} },
+    { xPayment: paymentSig },
+  );
 } catch (error) {
-  if (error.message.includes('401')) {
-    // Invalid or missing API key
-  } else if (error.message.includes('422')) {
-    // Invalid request (bad wallet address, unsupported action type)
+  if (error instanceof PaymentRequiredError) {
+    // 402 — payment required or invalid signature; error.details has the x402 schema
+  } else if (error.message.includes('401')) {
+    // AUTH_REQUIRED — called without xPayment (B2B) or session cookie (self)
+  } else if (error.message.includes('400')) {
+    // Invalid request — malformed wallet, unsupported action, or taskId in x402 mode
   } else if (error.message.includes('429')) {
-    // Rate limited — retry after delay
+    // Rate limited — x402 tier is 60/min per IP; self tier is 20/min
   }
 }
 ```
@@ -284,11 +321,12 @@ UZPROOF verifies actions — it does not execute them. For executing on-chain ac
 | **Jupiter Lend** | `npx skills add jup-ag/agent-skills --skill jupiter-lend` | Lending, borrowing, vaults |
 | **Solana Dev** | `npx skills add solana-foundation/solana-dev-skill` | Anchor programs, wallet connection, testing |
 
-**Typical workflow:** Jupiter skill executes a swap → UZPROOF skill verifies it happened → SAS attestation records proof on-chain.
+**Typical workflow:** Jupiter skill executes a swap → UZPROOF skill verifies it happened (x402) → SAS attestation records proof on-chain.
 
 ## Links
 
 - **npm:** [@uzproof/verify](https://www.npmjs.com/package/@uzproof/verify)
 - **Website:** [uzproof.com](https://uzproof.com)
 - **API Health:** [uzproof.com/api/health](https://uzproof.com/api/health)
+- **x402 Pricing:** [uzproof.com/api/x402/pricing](https://uzproof.com/api/x402/pricing)
 - **Skill repo:** [github.com/uzproof/uzproof-agent-skill](https://github.com/uzproof/uzproof-agent-skill)
