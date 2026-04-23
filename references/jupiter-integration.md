@@ -93,7 +93,7 @@ if (verification.verified) {
 
 ## Jupiter Program IDs
 
-```
+```text
 Jupiter v6:  JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4
 JUP Token:   JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN
 ```
