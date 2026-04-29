@@ -1,6 +1,6 @@
 ---
 name: uzproof
-description: Verify real on-chain usage on Solana — swaps, staking, token holds, liquidity, NFTs across 14 protocols (Jupiter, Marinade, Orca, Raydium, Drift, Kamino, MarginFi, Meteora, Jito, Tensor, Magic Eden, Metaplex, Sanctum, SPL Token). Anti-fraud scoring and on-chain SAS attestation. Use when verifying wallet activity, building proof-of-use features, gating access by on-chain behavior, distributing rewards based on verified actions, or detecting wash trading and sybil attacks.
+description: Verify real on-chain usage on Solana — swaps, staking, token holds, liquidity, NFTs across 15 protocols (Jupiter, Marinade, Orca, Raydium, Drift, Drift Vaults, Kamino, MarginFi, Meteora, Jito, Tensor, Magic Eden, Metaplex, Sanctum, SPL Token). Anti-fraud scoring and on-chain SAS attestation. Use when verifying wallet activity, building proof-of-use features, gating access by on-chain behavior, distributing rewards based on verified actions, or detecting wash trading and sybil attacks.
 license: MIT
 metadata:
   author: uzproof
@@ -114,7 +114,7 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
 // info.program.supportedActions = ["defi_swap", "defi_swap_buy", ...]
 ```
 
-See [references/contract-detect.md](references/contract-detect.md) for all 14 protocols.
+See [references/contract-detect.md](references/contract-detect.md) for all 15 protocols.
 
 ### `getTokenInfo(mint)` — Token Metadata & Price
 
