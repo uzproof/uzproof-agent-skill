@@ -35,7 +35,7 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
 }
 ```
 
-## Supported Protocols (14)
+## Supported Protocols (15)
 
 ### DEX / Aggregators
 
@@ -54,11 +54,17 @@ const info = await client.detectContract('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNy
 | **Sanctum (Infinity)** | `stkitrT1Uoy18Dk1fTrgPw8W6MVzoCfYoAFT4MLsmhq` | staking | `defi_stake_sol`, `defi_hold_staked` |
 | **Jito Stake Pool** | `SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy` | staking | `defi_stake_sol`, `defi_hold_staked` |
 
-### DeFi / Lending
+### Perpetuals + Spot
 
 | Protocol | Program ID | Category | Actions |
 |---|---|---|---|
-| **Drift Protocol** | `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH` | defi | `defi_swap` |
+| **Drift Protocol** | `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH` | defi | `defi_perp_trade`, `defi_perp_volume`, `defi_swap` |
+| **Drift Vaults** | `vAuLTsyrvSfZRuRB3XgvDPiy7Y2DEhU8XMYzr9wsEKR` | defi | `defi_perp_trade` |
+
+### Lending
+
+| Protocol | Program ID | Category | Actions |
+|---|---|---|---|
 | **Kamino Lending** | `6LtLpnUFNByNXLyCoK9wA2MykKAmQNZKBdY8s47dehDc` | defi | `defi_lend`, `defi_borrow` |
 | **MarginFi** | `MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA` | defi | `defi_lend`, `defi_borrow` |
 
